@@ -14,15 +14,15 @@ class UsersController < ApplicationController
   
   def show
     @user = User.find(params[:id])
-    redirect_to root_url and return unless @user.activated?
+    redirect_to root_url #and return unless @user.activated?
     @microposts = @user.microposts.paginate(page: params[:page])
   end
   
   def create
     @user = User.new(user_params)
     if @user.save
-      @user.send_activation_email
-      flash[:info] = "Please check your email to active your account"
+     # @user.send_activation_email
+      #flash[:info] = "Please check your email to active your account"
       redirect_to root_url
     else
       render "new"
@@ -48,19 +48,19 @@ class UsersController < ApplicationController
     redirect_to users_url
   end
   
-  def following
-    @title = "Following"
-    @user = User.find(params[:id])
-    @users = @user.following.paginate(page: params[:page])
-    render 'show_follow'
-  end
+  #def following
+    #@title = "Following"
+    #@user = User.find(params[:id])
+    #@users = @user.following.paginate(page: params[:page])
+    #render 'show_follow'
+  #end
   
-  def followers
-    @title = "Followers"
-    @user = User.find(params[:id])
-    @users = @user.followers.paginate(page: params[:page])
-    render 'show_follow'
-  end
+  #def followers
+    #@title = "Followers"
+    #@user = User.find(params[:id])
+    #@users = @user.followers.paginate(page: params[:page])
+    #render 'show_follow'
+  #end
   
   private
   
